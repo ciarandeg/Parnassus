@@ -1,11 +1,11 @@
-# My Personal Project
+# Parnassus
+## A species counterpoint validator
 
-## A subtitle
+Parnassus is a tool for validating notated music according to the rules stated in Johann Joseph Fux's *Gradus ad Parnassum*, a classic educational text for learning contrapuntal harmony.
+*Gradus ad Parnassum* provides a set of compositional approaches (referred to as "species"), which grow progressively more complex and are governed by strict rulesets.
+This approach to pedagogy is known as "species counterpoint".
 
-A *bulleted* list:
-- item 1
-- item 2
-- item 3
-
-An example of text with **bold** and *italic* fonts.  Note that the IntelliJ markdown previewer doesn't seem to render 
-the bold and italic fonts correctly but they will appear correctly on GitHub.
+This project aims to provide a full-featured validation suite for each of the five contrapuntal species Fux outlines in *Gradus*.
+This is a useful resource for any student of classical harmony, as it will notice easily-missed compositional errors.
+I see this as a useful practice tool, and am personally compelled to implement it because I think the rigidity of Fux's approach inherently translates well into a computational problem.
+I also see the development process of this program as a good opportunity to solidify my knowledge of contrapuntal harmony.
