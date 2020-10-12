@@ -1,11 +1,9 @@
 package model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class FirstSpeciesComposition extends Composition {
     private static final int VOICE_COUNT = 2;
-    private static final int VOICE_SIZE = 8;
     private ArrayList<Voice> voices;
 
     public FirstSpeciesComposition(int size) {
@@ -13,7 +11,7 @@ public class FirstSpeciesComposition extends Composition {
 
         voices = new ArrayList<Voice>();
         for (int i = 0; i < VOICE_COUNT; i++) {
-            voices.add(new Voice(VOICE_SIZE));
+            voices.add(new Voice(size));
         }
     }
 
