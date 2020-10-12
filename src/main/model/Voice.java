@@ -1,6 +1,5 @@
 package model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 // Represents a single voice of a composition, containing notes and rests
@@ -27,7 +26,6 @@ public class Voice {
         }
     }
 
-    // REQUIRES:
     // MODIFIES: this
     // EFFECTS: set note/rest at position to note
     public void setNote(int position, Note note) {
@@ -42,14 +40,11 @@ public class Voice {
     }
 
     // REQUIRES: there is a note at position
-    // MODIFIES:
     // EFFECTS: return note at position
     public Note getNote(int position) {
         return notes.get(position);
     }
 
-    // REQUIRES:
-    // MODIFIES:
     // EFFECTS: return number of notes in voice (excluding rests)
     public int getNoteCount() {
         int i = 0;
@@ -59,5 +54,10 @@ public class Voice {
             }
         }
         return i;
+    }
+
+    // EFFECTS: return maximum possible number of notes in voice
+    public int size() {
+        return notes.size();
     }
 }
