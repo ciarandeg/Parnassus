@@ -2,13 +2,13 @@ package model;
 
 import java.util.ArrayList;
 
+// Represents a first-species counterpoint composition of arbitrary size
 public class Composition {
     private static final int VOICE_COUNT = 2;
 
     private Validator validator;
     private ArrayList<Voice> voices;
 
-    // Represents a first-species counterpoint composition of arbitrary size
     public Composition(int size) {
         this.validator = new Validator();
 
