@@ -2,6 +2,7 @@ package model;
 
 import static java.lang.Math.abs;
 
+// Represents the distance in semitones between two musical notes, mod 12
 public class Interval {
     enum ConsonanceLevel {
         DISSONANT,
@@ -37,17 +38,14 @@ public class Interval {
         this.consonance = CONSONANCE_VALUES[this.size];
     }
 
-    // EFFECTS: return true if this is a dissonant interval, false otherwise
     public boolean isDissonant() {
         return this.consonance.equals(ConsonanceLevel.DISSONANT);
     }
 
-    // EFFECTS: return true if this is a non-perfect consonant interval, false if dissonant or perfect
     public boolean isConsonant() {
         return this.consonance.equals(ConsonanceLevel.CONSONANT);
     }
 
-    // EFFECTS: return true if this interval is a perfect consonance, false otherwise
     public boolean isPerfect() {
         return this.consonance.equals(ConsonanceLevel.PERFECT);
     }

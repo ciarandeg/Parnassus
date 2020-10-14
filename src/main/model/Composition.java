@@ -8,6 +8,7 @@ public class Composition {
     private Validator validator;
     private ArrayList<Voice> voices;
 
+    // Represents a first-species counterpoint composition of arbitrary size
     public Composition(int size) {
         this.validator = new Validator();
 

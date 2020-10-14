@@ -1,7 +1,6 @@
 package model;
 
-import static java.lang.Math.abs;
-
+// Represents the type of motion between two notes: up, down, or static
 public class Motion {
     enum Direction {
         UP,
@@ -17,17 +16,14 @@ public class Motion {
         this.dir = p0 > p1 ? Direction.DOWN : p0 < p1 ? Direction.UP : Direction.STATIC;
     }
 
-    // EFFECTS: return true if direction is up, false otherwise
     public boolean isUp() {
         return this.dir.equals(Direction.UP);
     }
 
-    // EFFECTS: return true if direction is down, false otherwise
     public boolean isDown() {
         return this.dir.equals(Direction.DOWN);
     }
 
-    // EFFECTS: return true if direction is static, false otherwise
     public boolean isStatic() {
         return this.dir.equals(Direction.STATIC);
     }

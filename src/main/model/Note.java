@@ -21,7 +21,6 @@ public class Note {
         this.length = length;
     }
 
-    // EFFECTS: return true if this note is rest, false otherwise
     public boolean isRest() {
         return this.pitch == REST_PITCH;
     }

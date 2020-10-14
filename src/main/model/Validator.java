@@ -1,28 +1,18 @@
 package model;
 
-/*
-RULES TO IMPLEMENT:
-    - "From one perfect consonance to another perfect consonance one must proceed in contrary or oblique motion"
-    - "From a perfect consonance to an imperfect consonance one may proceed in any of the three motions"
-    - "From an imperfect consonance to a perfect consonance one must proceed in contrary or oblique motion"
-    - "From one imperfect consonance to another perfect consonance one may proceed in any of the three motions"
-
-    1. Check that both voices are completely full
-    2. Check that all intervals are consonant
-    3. Check that the starting and ending intervals are perf
-    4. Check that no transitions which lead to perf are parallel
- */
-
 import exceptions.*;
 
 import java.util.ArrayList;
 
+// Represents the benevolent teacher Aloys, who informs you about your errors through Socratic dialogue
 public class Validator {
     private Voice v0;
     private Voice v1;
 
     public Validator() {}
 
+    // EFFECTS: validate that cmp fulfills all the rules of first-species counterpoint
+    //          return true if the composition is valid, throw an exception or return false otherwise
     public boolean validate(Composition cmp) throws VoiceNotFullException, NotAllIntervalsConsonantException,
             FirstIntervalNotPerfectException, LastIntervalNotPerfectException, ParallelToPerfectException {
         Voice v0 = cmp.getVoice(0);
@@ -36,6 +26,8 @@ public class Validator {
         return voicesFull && allIntervalsConsonant && firstLastIntervalPerfect && noIntervalsToPerfectParallel;
     }
 
+    // EFFECTS: return true if v contains its maximum number of notes, with no rests
+    //          false otherwise
     private boolean isVoiceFull(Voice v) throws VoiceNotFullException {
         for (int i = 0; i < v.size(); i++) {
             if (v.getNote(i).isRest()) {
@@ -45,6 +37,9 @@ public class Validator {
         return true;
     }
 
+    // REQUIRES: both voices are full
+    // EFFECTS: return true if all harmonic intervals between a pair of voices are consonant or perfect
+    //          return false otherwise
     private boolean areAllIntervalsConsonant(Voice v0, Voice v1) throws NotAllIntervalsConsonantException {
         ArrayList<Interval> intervals = generateIntervals(v0, v1);
 
@@ -57,6 +52,9 @@ public class Validator {
         return true;
     }
 
+    // REQUIRES: both voices are full
+    // EFFECTS: return true if the first harmonic interval between a pair of voices is a perfect consonance
+    //          return false otherwise
     private boolean isFirstIntervalPerfect(Voice v0, Voice v1) throws FirstIntervalNotPerfectException {
         Interval fi = new Interval(v0.getNote(0), v1.getNote(0));
 
@@ -67,6 +65,9 @@ public class Validator {
         return true;
     }
 
+    // REQUIRES: both voices are full
+    // EFFECTS: return true if the last harmonic interval between a pair of voices is a perfect consonance
+    //          return false otherwise
     private boolean isLastIntervalPerfect(Voice v0, Voice v1) throws LastIntervalNotPerfectException {
         int lastIndex = v0.size() - 1;
         Interval li = new Interval(v0.getNote(lastIndex), v1.getNote(lastIndex));
@@ -78,6 +79,9 @@ public class Validator {
         return true;
     }
 
+    // REQUIRES: both voices are full
+    // EFFECTS: return true if all perfect consonances between two voices are approached by non-parallel motion
+    //          return false otherwise
     private boolean areNoIntervalsToPerfectParallel(Voice v0, Voice v1) throws ParallelToPerfectException {
         ArrayList<Interval> intervals = generateIntervals(v0, v1);
         ArrayList<Integer> perfectIndices = new ArrayList<Integer>();
@@ -106,7 +110,7 @@ public class Validator {
         return true;
     }
 
-    // REQUIRES: v0 and v1 are the same size
+    // REQUIRES: v0 and v1 are the same size, and both are full
     // EFFECTS: generate a list of the intervals between two voices
     public ArrayList<Interval> generateIntervals(Voice v0, Voice v1) {
         ArrayList<Note> n0 = v0.getNoteArrayList();
