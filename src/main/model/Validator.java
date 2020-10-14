@@ -18,12 +18,13 @@ public class Validator {
         Voice v0 = cmp.getVoice(0);
         Voice v1 = cmp.getVoice(1);
 
-        boolean voicesFull = isVoiceFull(v0) && isVoiceFull(v1);
+        boolean firstVoiceFull = isVoiceFull(v0);
+        boolean secondVoiceFull = isVoiceFull(v1);
         boolean allIntervalsConsonant = areAllIntervalsConsonant(v0, v1);
         boolean firstLastIntervalPerfect = isFirstIntervalPerfect(v0, v1) && isLastIntervalPerfect(v0, v1);
         boolean noIntervalsToPerfectParallel = areNoIntervalsToPerfectParallel(v0, v1);
 
-        return voicesFull && allIntervalsConsonant && firstLastIntervalPerfect && noIntervalsToPerfectParallel;
+        return true;
     }
 
     // EFFECTS: return true if v contains its maximum number of notes, with no rests

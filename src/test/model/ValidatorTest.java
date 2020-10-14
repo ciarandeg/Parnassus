@@ -37,7 +37,27 @@ public class ValidatorTest {
     }
 
     @Test
-    public void validateOneVoicePartiallyEmptyTest() {
+    public void validateFirstVoicePartiallyEmptyTest() {
+        for (int i = 0; i < CMP_SIZE; i++) {
+            cmp.addNote(1, n1);
+        }
+        cmp.addNote(0, n1);
+        try {
+            assertFalse(val.validate(cmp));
+        } catch (VoiceNotFullException e) {
+        } catch (NotAllIntervalsConsonantException e) {
+            fail();
+        } catch (FirstIntervalNotPerfectException e) {
+            fail();
+        } catch (LastIntervalNotPerfectException e) {
+            fail();
+        } catch (ParallelToPerfectException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void validateSecondVoicePartiallyEmptyTest() {
         for (int i = 0; i < CMP_SIZE; i++) {
             cmp.addNote(0, n1);
         }
@@ -173,7 +193,7 @@ public class ValidatorTest {
     }
 
     @Test
-    public void validateEndIntervalNotPerfect() {
+    public void validateLastIntervalNotPerfect() {
         cmp.addNote(0, new Note(62));
         cmp.addNote(0, new Note(65));
         cmp.addNote(0, new Note(64));
@@ -199,7 +219,32 @@ public class ValidatorTest {
     }
 
     @Test
-    public void validateStartEndIntervalsPerfect() {
+    public void validateFirstLastIntervalsNotPerfect() {
+        cmp.addNote(0, new Note(62));
+        cmp.addNote(0, new Note(65));
+        cmp.addNote(0, new Note(64));
+        cmp.addNote(0, new Note(62));
+
+        cmp.addNote(1, new Note(77));
+        cmp.addNote(1, new Note(74));
+        cmp.addNote(1, new Note(76));
+        cmp.addNote(1, new Note(81));
+
+        try {
+            assertTrue(val.validate(cmp));
+        } catch (VoiceNotFullException e) {
+            fail();
+        } catch (NotAllIntervalsConsonantException e) {
+            fail();
+        } catch (FirstIntervalNotPerfectException e) {
+        } catch (LastIntervalNotPerfectException e) {
+        } catch (ParallelToPerfectException e) {
+            fail();
+        }
+    }
+
+    @Test
+    public void validateFirstLastIntervalsPerfect() {
         cmp.addNote(0, new Note(62));
         cmp.addNote(0, new Note(65));
         cmp.addNote(0, new Note(64));
