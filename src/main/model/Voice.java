@@ -60,4 +60,8 @@ public class Voice {
     public int size() {
         return notes.size();
     }
+
+    public ArrayList<Note> getNoteArrayList() {
+        return notes;
+    }
 }

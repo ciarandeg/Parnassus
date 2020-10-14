@@ -25,4 +25,8 @@ public class Note {
     public boolean isRest() {
         return this.pitch == REST_PITCH;
     }
+
+    public int getPitch() {
+        return this.pitch;
+    }
 }

@@ -4,14 +4,13 @@ import java.util.ArrayList;
 
 public class FirstSpeciesComposition extends Composition {
     private static final int VOICE_COUNT = 2;
-    private ArrayList<Voice> voices;
 
     public FirstSpeciesComposition(int size) {
-        super.validator = new FirstSpeciesValidator();
+        super.validator = new FirstSpeciesValidator(this);
 
-        voices = new ArrayList<Voice>();
+        super.voices = new ArrayList<Voice>();
         for (int i = 0; i < VOICE_COUNT; i++) {
-            voices.add(new Voice(size));
+            super.voices.add(new Voice(size));
         }
     }
 
@@ -32,16 +31,10 @@ public class FirstSpeciesComposition extends Composition {
         getVoice(voiceNum).removeNote(position);
     }
 
-    // REQUIRES: voiceNum <= number of voices present
-    // EFFECTS: return voice specified by voiceNum
-    public Voice getVoice(int voiceNum) {
-        return voices.get(voiceNum);
-    }
-
     // REQUIRES: all voices have the same size
     //           there must be >= 1 voices
     // EFFECTS: return the maximum amount of notes allowed per voice
     public int size() {
-        return voices.get(0).size();
+        return super.voices.get(0).size();
     }
 }
