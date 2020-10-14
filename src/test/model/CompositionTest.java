@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FirstSpeciesCompositionTest {
-    private FirstSpeciesComposition cmp;
+class CompositionTest {
+    private Composition cmp;
     private Note n1;
     private Note n2;
     private Voice v0;
@@ -14,7 +14,7 @@ class FirstSpeciesCompositionTest {
 
     @BeforeEach
     public void init() {
-        cmp = new FirstSpeciesComposition(8);
+        cmp = new Composition(8);
         n1 = new Note(60);
         n2 = new Note(72);
         v0 = cmp.getVoice(0);

@@ -2,18 +2,41 @@ package model;
 
 import java.util.ArrayList;
 
-// Represents a musical composition of arbitrary length with an arbitrary number of voices
-public abstract class Composition {
-    protected FirstSpeciesValidator validator;
-    protected ArrayList<Voice> voices;
+public class Composition {
+    private static final int VOICE_COUNT = 2;
 
-    public abstract void addNote(int voiceNum, Note note);
+    private Validator validator;
+    private ArrayList<Voice> voices;
 
-    public abstract void removeNote(int voiceNum, int position);
+    public Composition(int size) {
+        this.validator = new Validator();
 
-    // EFFECTS: validate this, return true if valid, false otherwise
-    public boolean validate() {
-        return validator.validate(this);
+        this.voices = new ArrayList<Voice>();
+        for (int i = 0; i < VOICE_COUNT; i++) {
+            this.voices.add(new Voice(size));
+        }
+    }
+
+    // REQUIRES: 1 <= voiceNum <= number of available voices
+    //           voice is under its note limit
+    // MODIFIES: this
+    // EFFECTS: add note to specified voice
+    public void addNote(int voiceNum, Note note) {
+        getVoice(voiceNum).addNote(note);
+    }
+
+    // REQUIRES: a note exists in specified position of specified voice
+    // MODIFIES: this
+    // EFFECTS: replace specified note with rest
+    public void removeNote(int voiceNum, int position) {
+        getVoice(voiceNum).removeNote(position);
+    }
+
+    // REQUIRES: all voices have the same size
+    //           there must be >= 1 voices
+    // EFFECTS: return the maximum amount of notes allowed per voice
+    public int size() {
+        return this.voices.get(0).size();
     }
 
     // REQUIRES: voiceNum <= number of voices present
