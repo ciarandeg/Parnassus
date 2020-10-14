@@ -12,7 +12,7 @@ public class Validator {
     public Validator() {}
 
     // EFFECTS: validate that cmp fulfills all the rules of first-species counterpoint
-    //          return true if the composition is valid, throw an exception or return false otherwise
+    //          return true if the composition is valid, throw an exception otherwise
     public boolean validate(Composition cmp) throws VoiceNotFullException, NotAllIntervalsConsonantException,
             FirstIntervalNotPerfectException, LastIntervalNotPerfectException, ParallelToPerfectException {
         Voice v0 = cmp.getVoice(0);
@@ -21,7 +21,8 @@ public class Validator {
         boolean firstVoiceFull = isVoiceFull(v0);
         boolean secondVoiceFull = isVoiceFull(v1);
         boolean allIntervalsConsonant = areAllIntervalsConsonant(v0, v1);
-        boolean firstLastIntervalPerfect = isFirstIntervalPerfect(v0, v1) && isLastIntervalPerfect(v0, v1);
+        boolean firstIntervalPerfect = isFirstIntervalPerfect(v0, v1);
+        boolean lastIntervalPerfect = isLastIntervalPerfect(v0, v1);
         boolean noIntervalsToPerfectParallel = areNoIntervalsToPerfectParallel(v0, v1);
 
         return true;
