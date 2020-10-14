@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CompositionTest {
+    private static final int compSize = 4;
     private Composition cmp;
     private Note n1;
     private Note n2;
@@ -14,7 +15,7 @@ class CompositionTest {
 
     @BeforeEach
     public void init() {
-        cmp = new Composition(8);
+        cmp = new Composition(compSize);
         n1 = new Note(60);
         n2 = new Note(72);
         v0 = cmp.getVoice(0);
@@ -50,5 +51,26 @@ class CompositionTest {
         cmp.removeNote(0, 0);
         assertEquals(v0.getNoteCount(), 1);
         assertEquals(v0.getNote(1), n2);
+    }
+
+    @Test
+    public void testAddNoteToFull() {
+        cmp.addNote(0, n1);
+        cmp.addNote(0, n1);
+        cmp.addNote(0, n1);
+        cmp.addNote(0, n1);
+
+        cmp.addNote(1, n2);
+        cmp.addNote(1, n2);
+        cmp.addNote(1, n2);
+        cmp.addNote(1, n2);
+
+        cmp.addNote(0, n2);
+        cmp.addNote(1, n1);
+
+        for (int i = 0; i < compSize; i++) {
+            assertEquals(cmp.getVoice(0).getNote(i), n1);
+            assertEquals(cmp.getVoice(1).getNote(i), n2);
+        }
     }
 }

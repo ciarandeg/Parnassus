@@ -23,8 +23,4 @@ public class Motion {
     public boolean isDown() {
         return this.dir.equals(Direction.DOWN);
     }
-
-    public boolean isStatic() {
-        return this.dir.equals(Direction.STATIC);
-    }
 }

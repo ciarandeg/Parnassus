@@ -33,13 +33,6 @@ public class Composition {
         getVoice(voiceNum).removeNote(position);
     }
 
-    // REQUIRES: all voices have the same size
-    //           there must be >= 1 voices
-    // EFFECTS: return the maximum amount of notes allowed per voice
-    public int size() {
-        return this.voices.get(0).size();
-    }
-
     // REQUIRES: voiceNum <= number of voices present
     // EFFECTS: return voice specified by voiceNum
     public Voice getVoice(int voiceNum) {

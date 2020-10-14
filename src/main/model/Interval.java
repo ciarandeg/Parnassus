@@ -28,18 +28,9 @@ public class Interval {
     int size;
     ConsonanceLevel consonance;
 
-    public Interval(int size) {
-        this.size = size;
-        this.consonance = CONSONANCE_VALUES[this.size];
-    }
-
     public Interval(Note n0, Note n1) {
         this.size = abs(n1.getPitch() - n0.getPitch()) % 12;
         this.consonance = CONSONANCE_VALUES[this.size];
-    }
-
-    public boolean isDissonant() {
-        return this.consonance.equals(ConsonanceLevel.DISSONANT);
     }
 
     public boolean isConsonant() {

@@ -13,9 +13,9 @@ public class Voice {
         }
     }
 
-    // REQUIRES: notes.size() <= size of voice
     // MODIFIES: this
     // EFFECTS: replace earliest rest with new note
+    //          if voice is full, do nothing
     public void addNote(Note note) {
         for (int i = 0; i < notes.size(); i++) {
             Note n = notes.get(i);
@@ -24,12 +24,6 @@ public class Voice {
                 return;
             }
         }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: set note/rest at position to note
-    public void setNote(int position, Note note) {
-        notes.set(position, note);
     }
 
     // REQUIRES: there is a note at position
