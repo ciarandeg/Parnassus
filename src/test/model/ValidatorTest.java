@@ -159,10 +159,15 @@ public class ValidatorTest {
         try {
             assertTrue(val.validate(cmp));
         } catch (VoiceNotFullException e) {
+            fail();
         } catch (NotAllIntervalsConsonantException e) {
+            fail();
         } catch (FirstIntervalNotPerfectException e) {
+            fail();
         } catch (LastIntervalNotPerfectException e) {
+            fail();
         } catch (ParallelToPerfectException e) {
+            fail();
         }
     }
 
@@ -229,6 +234,9 @@ public class ValidatorTest {
         cmp.addNote(1, new Note(74));
         cmp.addNote(1, new Note(76));
         cmp.addNote(1, new Note(81));
+
+        boolean firstPerf = true;
+        boolean lastPerf = true;
 
         try {
             assertTrue(val.validate(cmp));
