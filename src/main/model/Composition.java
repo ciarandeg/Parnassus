@@ -1,5 +1,8 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 // Represents a first-species counterpoint composition of arbitrary size
@@ -37,5 +40,27 @@ public class Composition {
     // EFFECTS: return voice specified by voiceNum
     public Voice getVoice(int voiceNum) {
         return voices.get(voiceNum);
+    }
+
+    public JSONObject toJson() {
+        JSONArray v0 = new JSONArray();
+        JSONArray v1 = new JSONArray();
+        JSONArray jsonVoices = new JSONArray();
+        JSONObject json = new JSONObject();
+
+        for (Note n : voices.get(0).getNoteArrayList()) {
+            v0.put(n.getPitch());
+        }
+
+        for (Note n : voices.get(1).getNoteArrayList()) {
+            v1.put(n.getPitch());
+        }
+
+        jsonVoices.put(v0);
+        jsonVoices.put(v1);
+
+        json.put("voices", jsonVoices);
+
+        return json;
     }
 }
