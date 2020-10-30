@@ -42,6 +42,8 @@ public class Composition {
         return voices.get(voiceNum);
     }
 
+    // CITATION: this method is adapted from WorkRoom.toJson() in CPSC 210's JSON Serialization Demo:
+    //           https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
     public JSONObject toJson() {
         JSONArray v0 = new JSONArray();
         JSONArray v1 = new JSONArray();
