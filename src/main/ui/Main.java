@@ -13,17 +13,28 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Composition cmp;
 
         System.out.println("Welcome to Parnassus!");
 
+        session();
+
+        System.out.println("See you later!");
+    }
+
+    // EFFECTS: a session where the user can load a composition, have it validated, and save their work once it's done
+    //          once finished, user can choose to create a new session to work on another composition
+    public static void session() {
+        Composition cmp;
         cmp = promptLoadComposition();
 
         promptValidateComposition(cmp);
 
         promptSaveComposition(cmp);
 
-        System.out.println("See you later!");
+        System.out.println("Would you like to restart with a new composition?");
+        if (promptYesNo()) {
+            session();
+        }
     }
 
     // EFFECTS: Let user load composition either from external file or through manual entry
