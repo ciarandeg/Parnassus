@@ -1,0 +1,16 @@
+{
+    "voices": [
+        {
+          "note1": 1,
+          "note2": 2,
+          "note3": 3,
+          "note4": 4
+        },
+        {
+          "note1": 5,
+          "note2": 6,
+          "note3": 7,
+          "note4": 8
+        }
+    ]
+}

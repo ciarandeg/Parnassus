@@ -17,3 +17,5 @@ I also see the development process of this program as a good opportunity to soli
 - As a user, I want to be able to verify that my composition is wholly made up of consonances
 - As a user, I want to be able to verify that my composition does not contain parallel perfect intervals
 - As a user, I want to be able to verify that my composition begins and ends with perfect consonances
+- As a user, I want to be able to save a composition to file
+- As a user, I want to be able to load a composition from file

@@ -3,6 +3,9 @@ package model;
 import exceptions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import persistence.JsonReader;
+
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -94,15 +97,7 @@ public class ValidatorTest {
 
     @Test
     public void validateNoIntervalsConsonantTest() {
-        cmp.addNote(0, new Note(62));
-        cmp.addNote(0, new Note(65));
-        cmp.addNote(0, new Note(64));
-        cmp.addNote(0, new Note(62));
-
-        cmp.addNote(1, new Note(68));
-        cmp.addNote(1, new Note(67));
-        cmp.addNote(1, new Note(69));
-        cmp.addNote(1, new Note(72));
+        readJson("./data/testNoIntervalsConsonantComposition.json");
 
         try {
             assertFalse(val.validate(cmp));
@@ -120,15 +115,7 @@ public class ValidatorTest {
 
     @Test
     public void validateSomeIntervalsConsonantTest() {
-        cmp.addNote(0, new Note(62));
-        cmp.addNote(0, new Note(65));
-        cmp.addNote(0, new Note(64));
-        cmp.addNote(0, new Note(62));
-
-        cmp.addNote(1, new Note(69));
-        cmp.addNote(1, new Note(67));
-        cmp.addNote(1, new Note(71));
-        cmp.addNote(1, new Note(72));
+        readJson("./data/testSomeIntervalsConsonantComposition.json");
 
         try {
             assertFalse(val.validate(cmp));
@@ -146,15 +133,7 @@ public class ValidatorTest {
 
     @Test
     public void validateAllIntervalsConsonantTest() {
-        cmp.addNote(0, new Note(60));
-        cmp.addNote(0, new Note(60));
-        cmp.addNote(0, new Note(60));
-        cmp.addNote(0, new Note(60));
-
-        cmp.addNote(1, new Note(72));
-        cmp.addNote(1, new Note(77));
-        cmp.addNote(1, new Note(79));
-        cmp.addNote(1, new Note(84));
+        readJson("./data/testAllIntervalsConsonantComposition.json");
 
         try {
             assertTrue(val.validate(cmp));
@@ -173,15 +152,7 @@ public class ValidatorTest {
 
     @Test
     public void validateFirstIntervalNotPerfect() {
-        cmp.addNote(0, new Note(62));
-        cmp.addNote(0, new Note(65));
-        cmp.addNote(0, new Note(64));
-        cmp.addNote(0, new Note(62));
-
-        cmp.addNote(1, new Note(77));
-        cmp.addNote(1, new Note(74));
-        cmp.addNote(1, new Note(76));
-        cmp.addNote(1, new Note(81));
+        readJson("./data/testFirstIntervalNotPerfectComposition.json");
 
         try {
             assertFalse(val.validate(cmp));
@@ -199,15 +170,7 @@ public class ValidatorTest {
 
     @Test
     public void validateLastIntervalNotPerfect() {
-        cmp.addNote(0, new Note(62));
-        cmp.addNote(0, new Note(65));
-        cmp.addNote(0, new Note(64));
-        cmp.addNote(0, new Note(62));
-
-        cmp.addNote(1, new Note(74));
-        cmp.addNote(1, new Note(74));
-        cmp.addNote(1, new Note(76));
-        cmp.addNote(1, new Note(77));
+        readJson("./data/testLastIntervalNotPerfectComposition.json");
 
         try {
             assertFalse(val.validate(cmp));
@@ -225,15 +188,7 @@ public class ValidatorTest {
 
     @Test
     public void validateFirstLastIntervalsNotPerfect() {
-        cmp.addNote(0, new Note(62));
-        cmp.addNote(0, new Note(65));
-        cmp.addNote(0, new Note(64));
-        cmp.addNote(0, new Note(62));
-
-        cmp.addNote(1, new Note(77));
-        cmp.addNote(1, new Note(74));
-        cmp.addNote(1, new Note(76));
-        cmp.addNote(1, new Note(81));
+        readJson("./data/testFirstLastIntervalsNotPerfectComposition.json");
 
         boolean firstPerf = true;
         boolean lastPerf = true;
@@ -253,15 +208,7 @@ public class ValidatorTest {
 
     @Test
     public void validateFirstLastIntervalsPerfect() {
-        cmp.addNote(0, new Note(62));
-        cmp.addNote(0, new Note(65));
-        cmp.addNote(0, new Note(64));
-        cmp.addNote(0, new Note(62));
-
-        cmp.addNote(1, new Note(74));
-        cmp.addNote(1, new Note(74));
-        cmp.addNote(1, new Note(76));
-        cmp.addNote(1, new Note(81));
+        readJson("./data/testFirstLastIntervalsPerfectComposition.json");
 
         try {
             assertTrue(val.validate(cmp));
@@ -280,15 +227,7 @@ public class ValidatorTest {
 
     @Test
     public void validateAllIntervalsToPerfectAreParallelTest() {
-        cmp.addNote(0, new Note(62));
-        cmp.addNote(0, new Note(65));
-        cmp.addNote(0, new Note(64));
-        cmp.addNote(0, new Note(62));
-
-        cmp.addNote(1, new Note(74));
-        cmp.addNote(1, new Note(74));
-        cmp.addNote(1, new Note(76));
-        cmp.addNote(1, new Note(74));
+        readJson("./data/testAllIntervalsToPerfectAreParallelComposition.json");
 
         try {
             assertFalse(val.validate(cmp));
@@ -306,15 +245,7 @@ public class ValidatorTest {
 
     @Test
     public void validateSomeIntervalsToPerfectAreParallelTest() {
-        cmp.addNote(0, new Note(62));
-        cmp.addNote(0, new Note(65));
-        cmp.addNote(0, new Note(64));
-        cmp.addNote(0, new Note(62));
-
-        cmp.addNote(1, new Note(69));
-        cmp.addNote(1, new Note(72));
-        cmp.addNote(1, new Note(76));
-        cmp.addNote(1, new Note(81));
+        readJson("./data/testSomeIntervalsToPerfectAreParallelComposition.json");
 
         try {
             assertFalse(val.validate(cmp));
@@ -332,15 +263,7 @@ public class ValidatorTest {
 
     @Test
     public void validateNoIntervalsToPerfectAreParallelTest() {
-        cmp.addNote(0, new Note(62));
-        cmp.addNote(0, new Note(65));
-        cmp.addNote(0, new Note(67));
-        cmp.addNote(0, new Note(62));
-
-        cmp.addNote(1, new Note(74));
-        cmp.addNote(1, new Note(72));
-        cmp.addNote(1, new Note(67));
-        cmp.addNote(1, new Note(74));
+        readJson("./data/testNoIntervalsToPerfectAreParallelComposition.json");
 
         try {
             assertTrue(val.validate(cmp));
@@ -354,6 +277,16 @@ public class ValidatorTest {
             fail();
         } catch (ParallelToPerfectException e) {
             fail();
+        }
+    }
+
+    // EFFECTS: point cmp to the composition described in src
+    private void readJson(String src) {
+        JsonReader jsr = new JsonReader(src);
+        try {
+            this.cmp = jsr.read();
+        } catch (IOException e) {
+            fail("The file failed to read/write for some reason");
         }
     }
 }
