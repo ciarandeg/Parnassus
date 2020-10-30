@@ -25,8 +25,8 @@ public class Interval {
             ConsonanceLevel.DISSONANT, // M7
     };
 
-    int size;
-    ConsonanceLevel consonance;
+    private int size;
+    private ConsonanceLevel consonance;
 
     public Interval(Note n0, Note n1) {
         this.size = abs(n1.getPitch() - n0.getPitch()) % 12;
