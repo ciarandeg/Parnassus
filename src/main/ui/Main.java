@@ -4,10 +4,15 @@ import exceptions.*;
 import model.Composition;
 import model.Note;
 import model.Validator;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
+
     public static void main(String[] args) {
         System.out.println("Welcome to Parnassus!");
 
@@ -16,41 +21,60 @@ public class Main {
             Composition cmp;
             int voiceSize;
 
-            System.out.printf("Enter the number of notes you want per voice: ");
-            cmp = new Composition(voiceSize = scn.nextInt());
+            cmp = loadCompositionPrompt();
 
-            System.out.printf("%d notes is an ideal size for a composition!\n\n", voiceSize);
+            validationPrompt(cmp);
 
-            pitchFormatWarning();
-
-            System.out.printf("Now you can begin note entry for voice 1.\n");
-            noteEntry(cmp, voiceSize);
-
-            System.out.printf("\nNote entry complete.\n");
-            System.out.printf("Now Parnassus will validate your composition and output any compositional errors:\n\n");
-
-            if (validate(cmp)) {
-                System.out.println("Your counterpoint is flawless! I have nothing more to teach you. Have good day!");
-                break;
-            } else {
-                if (!wrongAnswerPromptTryAgain()) {
-                    System.out.println("Sorry to see you go! Please read up on your counterpoint before coming back!");
-                    break;
-                }
-            }
+            saveCompositionPrompt(cmp);
         }
     }
 
-    private static void pitchFormatWarning() {
-        System.out.printf("NOTE: Parnassus uses MIDI integers for pitch.\n");
-        System.out.printf("60 is middle C, and 61 is middle C#. 0 is used for rest.\n\n");
+    private static Composition loadCompositionPrompt() {
+        Composition cmp;
+
+        System.out.println("Would you like to load an existing composition?");
+        if (yesNoPrompt()) {
+            cmp = loadFromFilePrompt();
+        } else {
+            cmp = noteEntryPrompt();
+        }
+        return cmp;
     }
 
-    private static void noteEntry(Composition cmp, int voiceSize) {
+    private static Composition loadFromFilePrompt() {
+        Composition cmp = new Composition(1); // have to initialize because of try/catch block
         Scanner scn = new Scanner(System.in);
 
+        boolean validPath = false;
+        while (!validPath) {
+            JsonReader jsr;
+            System.out.printf("Enter path to json file: ");
+            String src = scn.nextLine();
+            jsr = new JsonReader(src);
+            try {
+                cmp = jsr.read();
+                validPath = true;
+            } catch (IOException e) {
+                System.out.println("Invalid path! Please try again.");
+            }
+        }
+        return cmp;
+    }
+
+    private static Composition noteEntryPrompt() {
+        Composition cmp;
+        Scanner scn = new Scanner(System.in);
+
+        System.out.printf("Enter the number of notes you want per voice: ");
+        cmp = new Composition(scn.nextInt());
+
+        System.out.printf("NOTE: Parnassus uses MIDI integers for pitch.\n");
+        System.out.printf("60 is middle C, and 61 is middle C#. 0 is used for rest.\n\n");
+
+        System.out.printf("Now you can begin note entry for voice 1.\n");
+
         for (int v = 0; v < 2; v++) {
-            for (int i = 0; i < voiceSize; i++) {
+            for (int i = 0; i < cmp.getVoice(0).size(); i++) {
                 System.out.printf("Please enter the pitch of voice %d note %d: ", v + 1, i + 1);
                 Note n = new Note(scn.nextInt());
                 cmp.addNote(v, n);
@@ -59,7 +83,38 @@ public class Main {
                 System.out.printf("\nOnto the next voice!\n\n");
             }
         }
+        System.out.printf("\nNote entry complete.\n");
 
+        return cmp;
+    }
+
+    private static void validationPrompt(Composition cmp) {
+        System.out.printf("Now Parnassus will validate your composition and output any compositional errors:\n\n");
+
+        if (validate(cmp)) {
+            System.out.println("Your counterpoint is flawless! I have nothing more to teach you. Have good day!");
+        } else {
+            System.out.println("Your counterpoint is incorrect.");
+        }
+    }
+
+    private static void saveCompositionPrompt(Composition cmp) {
+        Scanner scn = new Scanner(System.in);
+
+        System.out.println("Would you like to save your composition?");
+        if (yesNoPrompt()) {
+            System.out.printf("Enter the path to new file: ");
+            JsonWriter jsw = new JsonWriter(scn.nextLine());
+            try {
+                jsw.open();
+                jsw.write(cmp);
+                jsw.close();
+            } catch (FileNotFoundException e) {
+                System.out.println("There was an error writing to file.");
+            }
+        } else {
+            System.out.println("All right! See you later.");
+        }
     }
 
     private static boolean validate(Composition cmp) {
@@ -86,10 +141,8 @@ public class Main {
         }
     }
 
-    private static boolean wrongAnswerPromptTryAgain() {
+    private static boolean yesNoPrompt() {
         Scanner scn = new Scanner(System.in);
-
-        System.out.println("Your counterpoint is incorrect. Would you like to try again?");
 
         while (true) {
             System.out.printf("Enter yes or no: ");
@@ -102,6 +155,5 @@ public class Main {
                 System.out.printf("That's not a valid answer. Please try again.\n\n");
             }
         }
-
     }
 }
