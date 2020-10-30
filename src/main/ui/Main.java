@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
-
     public static void main(String[] args) {
         Composition cmp;
 
@@ -27,6 +26,8 @@ public class Main {
         System.out.println("See you later!");
     }
 
+    // EFFECTS: Let user load composition either from external file or through manual entry
+    //          return loaded composition
     private static Composition promptLoadComposition() {
         Composition cmp;
 
@@ -39,6 +40,8 @@ public class Main {
         return cmp;
     }
 
+    // EFFECTS: Prompt user for path to JSON file describing a composition
+    //          return the loaded composition
     private static Composition promptLoadFromFile() {
         Composition cmp = new Composition(1); // must initialize because of try/catch block
         Scanner scn = new Scanner(System.in);
@@ -59,6 +62,8 @@ public class Main {
         return cmp;
     }
 
+    // EFFECTS: Let user manually enter pitch information for their composition
+    //          return the resulting composition
     private static Composition promptNoteEntry() {
         Composition cmp;
         Scanner scn = new Scanner(System.in);
@@ -86,6 +91,7 @@ public class Main {
         return cmp;
     }
 
+    // EFFECTS: validate user's composition and provide feedback
     private static void promptValidateComposition(Composition cmp) {
         System.out.printf("Now Parnassus will validate your composition and output any compositional errors:\n\n");
 
@@ -96,6 +102,7 @@ public class Main {
         }
     }
 
+    // EFFECTS: offer to save user's composition to an external file
     private static void promptSaveComposition(Composition cmp) {
         Scanner scn = new Scanner(System.in);
 
@@ -113,6 +120,7 @@ public class Main {
         }
     }
 
+    // EFFECTS: allow user to answer yes or no to a question, return true or false accordingly
     private static boolean promptYesNo() {
         Scanner scn = new Scanner(System.in);
 
@@ -129,6 +137,7 @@ public class Main {
         }
     }
 
+    // EFFECTS: attempt to validate cmp, provide feedback on counterpoint errors if an exception is thrown
     private static boolean validateComposition(Composition cmp) {
         Validator vld = new Validator();
 

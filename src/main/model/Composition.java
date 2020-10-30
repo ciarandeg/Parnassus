@@ -44,6 +44,7 @@ public class Composition {
 
     // CITATION: this method is adapted from WorkRoom.toJson() in CPSC 210's JSON Serialization Demo:
     //           https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+    // EFFECTS: convert composition data into a JSONObject, return it
     public JSONObject toJson() {
         JSONArray v0 = new JSONArray();
         JSONArray v1 = new JSONArray();
