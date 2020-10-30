@@ -46,17 +46,17 @@ public class JsonReader {
     // EFFECTS: parses composition from JSON object and returns it
     private Composition parseComposition(JSONObject jsonObject) {
         JSONArray voiceArray = jsonObject.getJSONArray("voices");
-        JSONObject v0 = voiceArray.getJSONObject(0);
-        JSONObject v1 = voiceArray.getJSONObject(1);
+        JSONArray v0 = voiceArray.getJSONArray(0);
+        JSONArray v1 = voiceArray.getJSONArray(1);
         assertEquals(v0.length(), v1.length());
         Composition cmp = new Composition(v0.length());
 
         for (int i = 0; i < v0.length(); i++) {
-            Note n = new Note(v0.getInt("note" + (i + 1)));
+            Note n = new Note(v0.getInt(i));
             cmp.addNote(0, n);
         }
         for (int i = 0; i < v1.length(); i++) {
-            Note n = new Note(v1.getInt("note" + (i + 1)));
+            Note n = new Note(v1.getInt(i));
             cmp.addNote(1, n);
         }
 
