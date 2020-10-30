@@ -12,6 +12,7 @@ public class Composition {
     private Validator validator;
     private ArrayList<Voice> voices;
 
+    // EFFECTS: create a VOICE_COUNT-voice composition with size notes per voice
     public Composition(int size) {
         this.validator = new Validator();
 
