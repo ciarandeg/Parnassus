@@ -14,35 +14,33 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        Composition cmp;
+
         System.out.println("Welcome to Parnassus!");
 
-        while (true) {
-            Scanner scn = new Scanner(System.in);
-            Composition cmp;
-            int voiceSize;
+        cmp = promptLoadComposition();
 
-            cmp = loadCompositionPrompt();
+        promptValidateComposition(cmp);
 
-            validationPrompt(cmp);
+        promptSaveComposition(cmp);
 
-            saveCompositionPrompt(cmp);
-        }
+        System.out.println("See you later!");
     }
 
-    private static Composition loadCompositionPrompt() {
+    private static Composition promptLoadComposition() {
         Composition cmp;
 
         System.out.println("Would you like to load an existing composition?");
-        if (yesNoPrompt()) {
-            cmp = loadFromFilePrompt();
+        if (promptYesNo()) {
+            cmp = promptLoadFromFile();
         } else {
-            cmp = noteEntryPrompt();
+            cmp = promptNoteEntry();
         }
         return cmp;
     }
 
-    private static Composition loadFromFilePrompt() {
-        Composition cmp = new Composition(1); // have to initialize because of try/catch block
+    private static Composition promptLoadFromFile() {
+        Composition cmp = new Composition(1); // must initialize because of try/catch block
         Scanner scn = new Scanner(System.in);
 
         boolean validPath = false;
@@ -61,7 +59,7 @@ public class Main {
         return cmp;
     }
 
-    private static Composition noteEntryPrompt() {
+    private static Composition promptNoteEntry() {
         Composition cmp;
         Scanner scn = new Scanner(System.in);
 
@@ -88,21 +86,21 @@ public class Main {
         return cmp;
     }
 
-    private static void validationPrompt(Composition cmp) {
+    private static void promptValidateComposition(Composition cmp) {
         System.out.printf("Now Parnassus will validate your composition and output any compositional errors:\n\n");
 
-        if (validate(cmp)) {
+        if (validateComposition(cmp)) {
             System.out.println("Your counterpoint is flawless! I have nothing more to teach you. Have good day!");
         } else {
             System.out.println("Your counterpoint is incorrect.");
         }
     }
 
-    private static void saveCompositionPrompt(Composition cmp) {
+    private static void promptSaveComposition(Composition cmp) {
         Scanner scn = new Scanner(System.in);
 
         System.out.println("Would you like to save your composition?");
-        if (yesNoPrompt()) {
+        if (promptYesNo()) {
             System.out.printf("Enter the path to new file: ");
             JsonWriter jsw = new JsonWriter(scn.nextLine());
             try {
@@ -112,12 +110,26 @@ public class Main {
             } catch (FileNotFoundException e) {
                 System.out.println("There was an error writing to file.");
             }
-        } else {
-            System.out.println("All right! See you later.");
         }
     }
 
-    private static boolean validate(Composition cmp) {
+    private static boolean promptYesNo() {
+        Scanner scn = new Scanner(System.in);
+
+        while (true) {
+            System.out.printf("Enter yes or no: ");
+            String answer = scn.nextLine();
+            if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
+                return true;
+            } else if (answer.equalsIgnoreCase("no") || answer.equalsIgnoreCase("n")) {
+                return false;
+            } else {
+                System.out.printf("That's not a valid answer. Please try again.\n\n");
+            }
+        }
+    }
+
+    private static boolean validateComposition(Composition cmp) {
         Validator vld = new Validator();
 
         try {
@@ -138,22 +150,6 @@ public class Main {
         } catch (ParallelToPerfectException e) {
             System.out.println("One or more perfect consonances are approached by parallel motion!");
             return false;
-        }
-    }
-
-    private static boolean yesNoPrompt() {
-        Scanner scn = new Scanner(System.in);
-
-        while (true) {
-            System.out.printf("Enter yes or no: ");
-            String answer = scn.nextLine();
-            if (answer.equalsIgnoreCase("yes") || answer.equalsIgnoreCase("y")) {
-                return true;
-            } else if (answer.equalsIgnoreCase("no") || answer.equalsIgnoreCase("n")) {
-                return false;
-            } else {
-                System.out.printf("That's not a valid answer. Please try again.\n\n");
-            }
         }
     }
 }
