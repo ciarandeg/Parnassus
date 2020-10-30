@@ -28,6 +28,7 @@ public class ValidatorTest {
         try {
             assertFalse(val.validate(cmp));
         } catch (VoiceNotFullException e) {
+            // pass
         } catch (NotAllIntervalsConsonantException e) {
             fail();
         } catch (FirstIntervalNotPerfectException e) {
@@ -48,6 +49,7 @@ public class ValidatorTest {
         try {
             assertFalse(val.validate(cmp));
         } catch (VoiceNotFullException e) {
+            // pass
         } catch (NotAllIntervalsConsonantException e) {
             fail();
         } catch (FirstIntervalNotPerfectException e) {
@@ -68,6 +70,7 @@ public class ValidatorTest {
         try {
             assertFalse(val.validate(cmp));
         } catch (VoiceNotFullException e) {
+            // pass
         } catch (NotAllIntervalsConsonantException e) {
             fail();
         } catch (FirstIntervalNotPerfectException e) {
@@ -88,10 +91,15 @@ public class ValidatorTest {
         try {
             assertTrue(val.validate(cmp));
         } catch (VoiceNotFullException e) {
+            fail();
         } catch (NotAllIntervalsConsonantException e) {
+            fail();
         } catch (FirstIntervalNotPerfectException e) {
+            fail();
         } catch (LastIntervalNotPerfectException e) {
+            fail();
         } catch (ParallelToPerfectException e) {
+            fail();
         }
     }
 
@@ -122,6 +130,7 @@ public class ValidatorTest {
         } catch (VoiceNotFullException e) {
             fail();
         } catch (NotAllIntervalsConsonantException e) {
+            // pass
         } catch (FirstIntervalNotPerfectException e) {
             fail();
         } catch (LastIntervalNotPerfectException e) {
@@ -161,6 +170,7 @@ public class ValidatorTest {
         } catch (NotAllIntervalsConsonantException e) {
             fail();
         } catch (FirstIntervalNotPerfectException e) {
+            // pass
         } catch (LastIntervalNotPerfectException e) {
             fail();
         } catch (ParallelToPerfectException e) {
@@ -181,6 +191,7 @@ public class ValidatorTest {
         } catch (FirstIntervalNotPerfectException e) {
             fail();
         } catch (LastIntervalNotPerfectException e) {
+            // pass
         } catch (ParallelToPerfectException e) {
             fail();
         }
@@ -200,7 +211,9 @@ public class ValidatorTest {
         } catch (NotAllIntervalsConsonantException e) {
             fail();
         } catch (FirstIntervalNotPerfectException e) {
+            // pass
         } catch (LastIntervalNotPerfectException e) {
+            // pass
         } catch (ParallelToPerfectException e) {
             fail();
         }
@@ -240,6 +253,7 @@ public class ValidatorTest {
         } catch (LastIntervalNotPerfectException e) {
             fail();
         } catch (ParallelToPerfectException e) {
+            // pass
         }
     }
 
@@ -258,6 +272,7 @@ public class ValidatorTest {
         } catch (LastIntervalNotPerfectException e) {
             fail();
         } catch (ParallelToPerfectException e) {
+            // pass
         }
     }
 
