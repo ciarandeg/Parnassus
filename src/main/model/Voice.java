@@ -1,9 +1,10 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 // Represents a single voice of a composition, containing notes and rests
-public class Voice {
+public class Voice implements Iterable<Note> {
     private ArrayList<Note> notes;
 
     public Voice(int size) {
@@ -57,5 +58,10 @@ public class Voice {
 
     public ArrayList<Note> getNoteArrayList() {
         return notes;
+    }
+
+    @Override
+    public Iterator<Note> iterator() {
+        return notes.iterator();
     }
 }

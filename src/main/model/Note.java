@@ -2,11 +2,11 @@ package model;
 
 // Represents a single musical note, with pitch and length
 public class Note {
-    private static final int REST_PITCH = 0;
+    public static final int REST = 0;
     private int pitch; // Midi pitch vals (middle C = 60)
 
     public Note() {
-        this.pitch = REST_PITCH;
+        this.pitch = REST;
     }
 
     public Note(int pitch) {
@@ -14,7 +14,7 @@ public class Note {
     }
 
     public boolean isRest() {
-        return this.pitch == REST_PITCH;
+        return this.pitch == REST;
     }
 
     public int getPitch() {

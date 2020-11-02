@@ -31,8 +31,8 @@ public class Validator {
     // EFFECTS: return true if v contains its maximum number of notes, with no rests
     //          false otherwise
     private boolean isVoiceFull(Voice v) throws VoiceNotFullException {
-        for (int i = 0; i < v.size(); i++) {
-            if (v.getNote(i).isRest()) {
+        for (Note n : v) {
+            if (n.isRest()) {
                 throw new VoiceNotFullException();
             }
         }

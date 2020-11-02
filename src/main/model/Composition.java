@@ -4,9 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 // Represents a first-species counterpoint composition of arbitrary size
-public class Composition {
+public class Composition implements Iterable<Voice> {
     private static final int VOICE_COUNT = 2;
 
     private Validator validator;
@@ -66,5 +67,10 @@ public class Composition {
         json.put("voices", jsonVoices);
 
         return json;
+    }
+
+    @Override
+    public Iterator<Voice> iterator() {
+        return voices.iterator();
     }
 }
