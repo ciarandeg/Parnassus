@@ -1,4 +1,4 @@
-package ui.buttons;
+package ui.graphics.buttons;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

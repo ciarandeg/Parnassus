@@ -1,39 +1,35 @@
 package ui;
 
 import model.Composition;
-import model.Note;
-import model.Voice;
-import ui.buttons.*;
+import ui.graphics.*;
+import ui.graphics.buttons.LoadButtonListener;
+import ui.graphics.buttons.ParnassusButton;
+import ui.graphics.buttons.SaveButtonListener;
+import ui.graphics.buttons.ValidationButtonListener;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class Graphical extends JFrame {
+public class GUI extends JFrame {
     public static final int WIDTH_MIN = 1200;
     public static final int HEIGHT_MIN = 200;
-    private static final int SPINNER_DEFAULT = 60;
-    private static final int SPINNER_MIN = 21;
-    private static final int SPINNER_MAX = 127;
-    private static final int SPINNER_INC = 1;
     private static final int MAIN_GRID_ROWS = 1;
     private static final int MAIN_GRID_COLS = 1;
     private static final int MAIN_PANEL_PADDING = 25;
-    private static final int COMPOSITION_VOICE_COUNT = 2;
-    private static final int COMPOSITION_NOTE_COUNT = 8;
-    private static final int COMPOSITION_PANEL_PADDING = 5;
     private static final int BUTTON_COUNT = 3;
     private static final int BUTTON_VGAP = 10;
     private static final int DEFAULT_COMPOSITION_SIZE = 8;
 
     private Composition cmp;
     private JPanel mainPanel;
-    private JPanel compositionPanel;
+    private GraphicalComposition compositionPanel;
     private JPanel buttonPanel;
 
-    public Graphical() {
+    public GUI() {
         super("Parnassus");
         cmp = new Composition(DEFAULT_COMPOSITION_SIZE);
+        compositionPanel = new GraphicalComposition(cmp);
         initGraphics();
     }
 
@@ -54,34 +50,10 @@ public class Graphical extends JFrame {
         mainPanel = new JPanel(new GridLayout(MAIN_GRID_ROWS, MAIN_GRID_COLS));
         mainPanel.setBorder(new EmptyBorder(MAIN_PANEL_PADDING, MAIN_PANEL_PADDING,
                                             MAIN_PANEL_PADDING, MAIN_PANEL_PADDING));
-        initCompositionPanel();
         initButtonPanel();
         mainPanel.add(compositionPanel);
         mainPanel.add(buttonPanel);
         add(mainPanel);
-    }
-
-    private void initCompositionPanel() {
-        compositionPanel = new JPanel(new GridLayout(COMPOSITION_VOICE_COUNT, COMPOSITION_NOTE_COUNT));
-        compositionPanel.setBorder(new EmptyBorder(COMPOSITION_PANEL_PADDING, COMPOSITION_PANEL_PADDING,
-                                                    COMPOSITION_PANEL_PADDING, COMPOSITION_PANEL_PADDING));
-        for (Voice v : cmp) {
-            for (Note n : v) {
-                JSpinner js =
-                        new JSpinner(new SpinnerNumberModel(SPINNER_DEFAULT,
-                                                            SPINNER_MIN,
-                                                            SPINNER_MAX,
-                                                            SPINNER_INC));
-                js.setFont(new Font("NotoSansMono Nerd Font", Font.BOLD, 24));
-
-                int pitch = n.getPitch();
-                if (pitch != Note.REST) {
-                    js.setValue(pitch);
-                }
-
-                compositionPanel.add(js);
-            }
-        }
     }
 
     private void initButtonPanel() {
@@ -99,6 +71,6 @@ public class Graphical extends JFrame {
     }
 
     public static void main(String[] args) {
-        new Graphical();
+        new GUI();
     }
 }

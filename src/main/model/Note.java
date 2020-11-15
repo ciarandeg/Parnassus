@@ -1,12 +1,16 @@
 package model;
 
+import java.util.Observable;
+import java.util.Observer;
+
 // Represents a single musical note, with pitch and length
-public class Note {
+public class Note extends Observable {
     public static final int REST = 0;
-    private int pitch; // Midi pitch vals (middle C = 60)
+    public static final int MIDDLE_C = 60;
+    private int pitch; // Midi pitch vals
 
     public Note() {
-        this.pitch = REST;
+        this.pitch = MIDDLE_C;
     }
 
     public Note(int pitch) {
@@ -19,5 +23,18 @@ public class Note {
 
     public int getPitch() {
         return this.pitch;
+    }
+
+    public void setPitch(int pitch) {
+        this.pitch = pitch;
+        setChanged();
+        notifyObservers();
+    }
+
+    @Override
+    public void addObserver(Observer o) {
+        super.addObserver(o);
+        setChanged();
+        notifyObservers();
     }
 }
