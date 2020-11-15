@@ -34,7 +34,6 @@ public class GraphicalNote extends JSpinner implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         setValue(note.getPitch());
-        System.out.println(note.getPitch());
     }
 
     public void setPitch(int pitch) {
