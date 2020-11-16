@@ -1,10 +1,11 @@
 package ui;
 
+import exceptions.*;
 import model.Composition;
+import model.Validator;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import ui.graphics.*;
-import ui.graphics.buttons.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -91,11 +92,6 @@ public class GUI extends JFrame {
     }
 
     private class LoadButtonListener extends ParnassusButtonListener {
-
-        public LoadButtonListener() {
-            super();
-        }
-
         @Override
         public void mouseClicked(MouseEvent e) {
             if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
@@ -111,10 +107,6 @@ public class GUI extends JFrame {
     }
 
     private class SaveButtonListener extends ParnassusButtonListener {
-        public SaveButtonListener() {
-            super();
-        }
-
         @Override
         public void mouseClicked(MouseEvent e) {
             if (fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
@@ -127,6 +119,37 @@ public class GUI extends JFrame {
                     fileNotFoundException.printStackTrace();
                 }
             }
+        }
+    }
+
+    private class ValidationButtonListener extends ParnassusButtonListener {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            Validator validator = new Validator();
+            String validationMessage = "Your composition is valid!";
+            int messageType = JOptionPane.INFORMATION_MESSAGE;
+            boolean valid = false;
+            try {
+                validator.validate(cmp);
+                valid = true;
+            } catch (VoiceNotFullException voiceNotFullException) {
+                validationMessage = "At least one voice is not full.";
+            } catch (NotAllIntervalsConsonantException notAllIntervalsConsonantException) {
+                validationMessage = "Not all intervals are consonant.";
+            } catch (FirstIntervalNotPerfectException firstIntervalNotPerfectException) {
+                validationMessage = "The first interval is not a perfect consonance.";
+            } catch (LastIntervalNotPerfectException lastIntervalNotPerfectException) {
+                validationMessage = "The last interval is not a perfect consonance.";
+            } catch (ParallelToPerfectException parallelToPerfectException) {
+                validationMessage = "At least one perfect consonance is approached by parallel motion.";
+            }
+
+            if (!valid) {
+                validationMessage = "Invalid! " + validationMessage;
+                messageType = JOptionPane.ERROR_MESSAGE;
+            }
+
+            JOptionPane.showMessageDialog(null, validationMessage, "Validation Results", messageType);
         }
     }
 }

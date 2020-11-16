@@ -9,14 +9,10 @@ import java.util.Iterator;
 // Represents a first-species counterpoint composition of arbitrary size
 public class Composition implements Iterable<Voice> {
     private static final int VOICE_COUNT = 2;
-
-    private Validator validator;
     private ArrayList<Voice> voices;
 
     // EFFECTS: create a VOICE_COUNT-voice composition with size notes per voice
     public Composition(int size) {
-        this.validator = new Validator();
-
         this.voices = new ArrayList<Voice>();
         for (int i = 0; i < VOICE_COUNT; i++) {
             this.voices.add(new Voice(size));

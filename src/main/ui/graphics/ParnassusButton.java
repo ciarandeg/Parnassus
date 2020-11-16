@@ -1,4 +1,4 @@
-package ui.graphics.buttons;
+package ui.graphics;
 
 import javax.swing.*;
 

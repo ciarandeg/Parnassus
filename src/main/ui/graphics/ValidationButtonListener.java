@@ -1,4 +1,6 @@
-package ui.graphics.buttons;
+package ui.graphics;
+
+import ui.graphics.ParnassusButtonListener;
 
 import java.awt.event.MouseEvent;
 
