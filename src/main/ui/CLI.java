@@ -3,7 +3,6 @@ package ui;
 import exceptions.*;
 import model.Composition;
 import model.Note;
-import model.Validator;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -12,6 +11,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class CLI {
+    private static JsonReader jsr;
+    private static JsonWriter jsw;
+
     public static void main(String[] args) {
 
         System.out.println("Welcome to Parnassus!");
@@ -59,7 +61,6 @@ public class CLI {
 
         boolean validPath = false;
         while (!validPath) {
-            JsonReader jsr;
             System.out.printf("Enter path to json file: ");
             String src = scn.nextLine();
             jsr = new JsonReader(src);
@@ -120,7 +121,7 @@ public class CLI {
         System.out.println("Would you like to save your composition?");
         if (promptYesNo()) {
             System.out.printf("Enter the path to new file: ");
-            JsonWriter jsw = new JsonWriter(scn.nextLine());
+            jsw = new JsonWriter(scn.nextLine());
             try {
                 jsw.open();
                 jsw.write(cmp);

@@ -28,6 +28,8 @@ public class GUI extends JFrame {
     private JPanel mainPanel;
     private GraphicalComposition compositionPanel;
     private ButtonPanel buttonPanel;
+    private JsonReader jsr;
+    private JsonWriter jsw;
 
     public GUI() {
         super("Parnassus");
@@ -96,7 +98,7 @@ public class GUI extends JFrame {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-                JsonReader jsr = new JsonReader(fc.getSelectedFile().getPath());
+                jsr = new JsonReader(fc.getSelectedFile().getPath());
                 try {
                     Composition cmp = jsr.read();
                     setComposition(cmp);
@@ -111,7 +113,7 @@ public class GUI extends JFrame {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-                JsonWriter jsw = new JsonWriter(fc.getSelectedFile().getPath());
+                jsw = new JsonWriter(fc.getSelectedFile().getPath());
                 try {
                     jsw.open();
                     jsw.write(cmp);
