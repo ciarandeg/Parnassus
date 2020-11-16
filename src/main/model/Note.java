@@ -10,7 +10,7 @@ public class Note extends Observable {
     private int pitch; // Midi pitch vals
 
     public Note() {
-        this.pitch = MIDDLE_C;
+        this.pitch = REST;
     }
 
     public Note(int pitch) {

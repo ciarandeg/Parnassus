@@ -11,7 +11,8 @@ import java.util.Observer;
 
 public class GraphicalNote extends JSpinner implements Observer {
     private static final int SPINNER_DEFAULT = 60;
-    private static final int SPINNER_MIN = 21;
+    //private static final int SPINNER_MIN = 21;
+    private static final int SPINNER_MIN = 0;
     private static final int SPINNER_MAX = 127;
     private static final int SPINNER_INC = 1;
     private static final Font FONT = new Font("NotoSansMono Nerd Font", Font.BOLD, 24);
