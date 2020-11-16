@@ -3,6 +3,8 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CompositionTest {
@@ -72,5 +74,14 @@ class CompositionTest {
             assertEquals(cmp.getVoice(0).getNote(i), n1);
             assertEquals(cmp.getVoice(1).getNote(i), n2);
         }
+    }
+
+    @Test
+    public void testIterator() {
+        Iterator<Voice> iterator = cmp.iterator();
+        assertTrue(iterator.hasNext());
+        assertEquals(iterator.next(), cmp.getVoice(0));
+        assertEquals(iterator.next(), cmp.getVoice(1));
+        assertFalse(iterator.hasNext());
     }
 }
