@@ -1,6 +1,7 @@
 package persistence;
 
 import model.Composition;
+import model.Note;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -44,11 +45,11 @@ class JsonWriterTest {
             cmp = reader.read();
 
             for (int i = 0; i < CompositionSize; i++) {
-                assertEquals(cmp.getVoice(0).getNote(i).getPitch(), 0);
+                assertEquals(cmp.getVoice(0).getNote(i).getPitch(), Note.REST);
             }
 
             for (int i = 0; i < CompositionSize; i++) {
-                assertEquals(cmp.getVoice(1).getNote(i).getPitch(), 0);
+                assertEquals(cmp.getVoice(1).getNote(i).getPitch(), Note.REST);
             }
         } catch (IOException e) {
             fail("Exception should not have been thrown");
