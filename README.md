@@ -19,3 +19,6 @@ I also see the development process of this program as a good opportunity to soli
 - As a user, I want to be able to verify that my composition begins and ends with perfect consonances
 - As a user, I want to be able to save a composition to file
 - As a user, I want to be able to load a composition from file
+
+## Phase 4: Task 2
+The Validator class is robust. Its validate() method uses exceptions to provide multiple failstates without having to represent them as integer error codes.
