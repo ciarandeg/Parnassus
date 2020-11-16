@@ -19,14 +19,14 @@ public class ValidatorTest {
     @BeforeEach
     public void init() {
         cmp = new Composition(CMP_SIZE);
-        val = new Validator();
+        val = new Validator(cmp);
         n1 = new Note(60);
     }
 
     @Test
     public void validateEmptyVoiceTest() {
         try {
-            assertFalse(val.validate(cmp));
+            assertFalse(val.validate());
         } catch (VoiceNotFullException e) {
             // pass
         } catch (NotAllIntervalsConsonantException e) {
@@ -47,7 +47,7 @@ public class ValidatorTest {
         }
         cmp.addNote(0, n1);
         try {
-            assertFalse(val.validate(cmp));
+            assertFalse(val.validate());
         } catch (VoiceNotFullException e) {
             // pass
         } catch (NotAllIntervalsConsonantException e) {
@@ -68,7 +68,7 @@ public class ValidatorTest {
         }
         cmp.addNote(1, n1);
         try {
-            assertFalse(val.validate(cmp));
+            assertFalse(val.validate());
         } catch (VoiceNotFullException e) {
             // pass
         } catch (NotAllIntervalsConsonantException e) {
@@ -89,7 +89,7 @@ public class ValidatorTest {
             cmp.addNote(1, n1);
         }
         try {
-            assertTrue(val.validate(cmp));
+            assertTrue(val.validate());
         } catch (VoiceNotFullException e) {
             fail();
         } catch (NotAllIntervalsConsonantException e) {
@@ -108,7 +108,7 @@ public class ValidatorTest {
         readJson("./data/testNoIntervalsConsonantComposition.json");
 
         try {
-            assertFalse(val.validate(cmp));
+            assertFalse(val.validate());
         } catch (VoiceNotFullException e) {
             fail();
         } catch (NotAllIntervalsConsonantException e) {
@@ -126,7 +126,7 @@ public class ValidatorTest {
         readJson("./data/testSomeIntervalsConsonantComposition.json");
 
         try {
-            assertFalse(val.validate(cmp));
+            assertFalse(val.validate());
         } catch (VoiceNotFullException e) {
             fail();
         } catch (NotAllIntervalsConsonantException e) {
@@ -145,7 +145,7 @@ public class ValidatorTest {
         readJson("./data/testAllIntervalsConsonantComposition.json");
 
         try {
-            assertTrue(val.validate(cmp));
+            assertTrue(val.validate());
         } catch (VoiceNotFullException e) {
             fail();
         } catch (NotAllIntervalsConsonantException e) {
@@ -164,7 +164,7 @@ public class ValidatorTest {
         readJson("./data/testFirstIntervalNotPerfectComposition.json");
 
         try {
-            assertFalse(val.validate(cmp));
+            assertFalse(val.validate());
         } catch (VoiceNotFullException e) {
             fail();
         } catch (NotAllIntervalsConsonantException e) {
@@ -183,7 +183,7 @@ public class ValidatorTest {
         readJson("./data/testLastIntervalNotPerfectComposition.json");
 
         try {
-            assertFalse(val.validate(cmp));
+            assertFalse(val.validate());
         } catch (VoiceNotFullException e) {
             fail();
         } catch (NotAllIntervalsConsonantException e) {
@@ -205,7 +205,7 @@ public class ValidatorTest {
         boolean lastPerf = true;
 
         try {
-            assertTrue(val.validate(cmp));
+            assertTrue(val.validate());
         } catch (VoiceNotFullException e) {
             fail();
         } catch (NotAllIntervalsConsonantException e) {
@@ -224,7 +224,7 @@ public class ValidatorTest {
         readJson("./data/testFirstLastIntervalsPerfectComposition.json");
 
         try {
-            assertTrue(val.validate(cmp));
+            assertTrue(val.validate());
         } catch (VoiceNotFullException e) {
             fail();
         } catch (NotAllIntervalsConsonantException e) {
@@ -243,7 +243,7 @@ public class ValidatorTest {
         readJson("./data/testAllIntervalsToPerfectAreParallelComposition.json");
 
         try {
-            assertFalse(val.validate(cmp));
+            assertFalse(val.validate());
         } catch (VoiceNotFullException e) {
             fail();
         } catch (NotAllIntervalsConsonantException e) {
@@ -262,7 +262,7 @@ public class ValidatorTest {
         readJson("./data/testSomeIntervalsToPerfectAreParallelComposition.json");
 
         try {
-            assertFalse(val.validate(cmp));
+            assertFalse(val.validate());
         } catch (VoiceNotFullException e) {
             fail();
         } catch (NotAllIntervalsConsonantException e) {
@@ -281,7 +281,7 @@ public class ValidatorTest {
         readJson("./data/testNoIntervalsToPerfectAreParallelComposition.json");
 
         try {
-            assertTrue(val.validate(cmp));
+            assertTrue(val.validate());
         } catch (VoiceNotFullException e) {
             fail();
         } catch (NotAllIntervalsConsonantException e) {
@@ -300,6 +300,7 @@ public class ValidatorTest {
         JsonReader jsr = new JsonReader(src);
         try {
             this.cmp = jsr.read();
+            val = cmp.getValidator();
         } catch (IOException e) {
             fail("The file failed to read/write for some reason");
         }

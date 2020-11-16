@@ -8,15 +8,18 @@ import java.util.ArrayList;
 public class Validator {
     private Voice v0;
     private Voice v1;
+    private Composition composition;
 
-    public Validator() {}
+    public Validator(Composition composition) {
+        this.composition = composition;
+    }
 
     // EFFECTS: validate that cmp fulfills all the rules of first-species counterpoint
     //          return true if the composition is valid, throw an exception otherwise
-    public boolean validate(Composition cmp) throws VoiceNotFullException, NotAllIntervalsConsonantException,
+    public boolean validate() throws VoiceNotFullException, NotAllIntervalsConsonantException,
             FirstIntervalNotPerfectException, LastIntervalNotPerfectException, ParallelToPerfectException {
-        Voice v0 = cmp.getVoice(0);
-        Voice v1 = cmp.getVoice(1);
+        Voice v0 = composition.getVoice(0);
+        Voice v1 = composition.getVoice(1);
 
         boolean firstVoiceFull = isVoiceFull(v0);
         boolean secondVoiceFull = isVoiceFull(v1);

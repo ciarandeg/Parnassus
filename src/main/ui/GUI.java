@@ -2,7 +2,6 @@ package ui;
 
 import exceptions.*;
 import model.Composition;
-import model.Validator;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import ui.graphics.*;
@@ -73,6 +72,9 @@ public class GUI extends JFrame {
     }
 
     private class ButtonPanel extends JPanel {
+        private ParnassusButton loadButton;
+        private ParnassusButton saveButton;
+        private ParnassusButton validationButton;
         private GridLayout layout;
 
         public ButtonPanel() {
@@ -80,9 +82,9 @@ public class GUI extends JFrame {
             layout = (GridLayout) getLayout();
             layout.setVgap(BUTTON_VGAP);
 
-            ParnassusButton loadButton = new ParnassusButton("Load", new LoadButtonListener());
-            ParnassusButton saveButton = new ParnassusButton("Save", new SaveButtonListener());
-            ParnassusButton validationButton = new ParnassusButton("Validate", new ValidationButtonListener());
+            loadButton = new ParnassusButton("Load", new LoadButtonListener());
+            saveButton = new ParnassusButton("Save", new SaveButtonListener());
+            validationButton = new ParnassusButton("Validate", new ValidationButtonListener());
 
             add(loadButton);
             add(saveButton);
@@ -124,12 +126,11 @@ public class GUI extends JFrame {
     private class ValidationButtonListener extends ParnassusButtonListener {
         @Override
         public void mouseClicked(MouseEvent e) {
-            Validator validator = new Validator();
             String validationMessage = "Your composition is valid!";
             int messageType = JOptionPane.INFORMATION_MESSAGE;
             boolean valid = false;
             try {
-                validator.validate(cmp);
+                cmp.validate();
                 valid = true;
             } catch (VoiceNotFullException voiceNotFullException) {
                 validationMessage = "At least one voice is not full.";

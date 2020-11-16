@@ -150,10 +150,8 @@ public class CLI {
 
     // EFFECTS: attempt to validate cmp, provide feedback on counterpoint errors if an exception is thrown
     private static boolean validateComposition(Composition cmp) {
-        Validator vld = new Validator();
-
         try {
-            vld.validate(cmp);
+            cmp.validate();
             return true;
         } catch (VoiceNotFullException e) {
             System.out.println("One or more voices are not filled with notes!");

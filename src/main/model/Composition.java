@@ -1,5 +1,6 @@
 package model;
 
+import exceptions.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -10,10 +11,12 @@ import java.util.Iterator;
 public class Composition implements Iterable<Voice> {
     private static final int VOICE_COUNT = 2;
     private ArrayList<Voice> voices;
+    private Validator validator;
 
     // EFFECTS: create a VOICE_COUNT-voice composition with size notes per voice
     public Composition(int size) {
         this.voices = new ArrayList<Voice>();
+        this.validator = new Validator(this);
         for (int i = 0; i < VOICE_COUNT; i++) {
             this.voices.add(new Voice(size));
         }
@@ -63,6 +66,15 @@ public class Composition implements Iterable<Voice> {
         json.put("voices", jsonVoices);
 
         return json;
+    }
+
+    public boolean validate() throws NotAllIntervalsConsonantException, FirstIntervalNotPerfectException,
+            ParallelToPerfectException, LastIntervalNotPerfectException, VoiceNotFullException {
+        return validator.validate();
+    }
+
+    public Validator getValidator() {
+        return validator;
     }
 
     @Override
