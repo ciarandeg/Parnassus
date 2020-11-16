@@ -63,7 +63,6 @@ public class GUI extends JFrame {
     private void setComposition(Composition cmp) {
         this.cmp = cmp;
         mainPanel.remove(compositionPanel);
-        //mainPanel.validate();
         compositionPanel = new GraphicalComposition(cmp);
         mainPanel.add(compositionPanel, 0);
         mainPanel.validate();

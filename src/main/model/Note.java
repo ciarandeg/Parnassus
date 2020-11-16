@@ -5,8 +5,7 @@ import java.util.Observer;
 
 // Represents a single musical note, with pitch and length
 public class Note extends Observable {
-    public static final int REST = 0;
-    public static final int MIDDLE_C = 60;
+    public static final int REST = 20;
     private int pitch; // Midi pitch vals
 
     public Note() {
