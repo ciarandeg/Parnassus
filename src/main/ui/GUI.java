@@ -6,10 +6,13 @@ import persistence.JsonReader;
 import persistence.JsonWriter;
 import ui.graphics.*;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -22,6 +25,8 @@ public class GUI extends JFrame {
     private static final int BUTTON_COUNT = 3;
     private static final int BUTTON_VGAP = 10;
     private static final int DEFAULT_COMPOSITION_SIZE = 8;
+    private static final String PASS_AUDIO_PATH = "./assets/pass.wav";
+    private static final String FAIL_AUDIO_PATH = "./assets/fail.wav";
     private final JFileChooser fc = new JFileChooser();
 
     private Composition cmp;
@@ -30,12 +35,29 @@ public class GUI extends JFrame {
     private ButtonPanel buttonPanel;
     private JsonReader jsr;
     private JsonWriter jsw;
+    private Clip passClip;
+    private Clip failClip;
 
     public GUI() {
         super("Parnassus");
         cmp = new Composition(DEFAULT_COMPOSITION_SIZE);
         compositionPanel = new GraphicalComposition(cmp);
+        initAudio();
         initGraphics();
+    }
+
+    // CITATION: https://www.codeproject.com/Answers/1210277/Play-wav-file-in-java#answer1
+    // MODIFIES: this
+    // EFFECTS: load audio clips for validator results into memory
+    private void initAudio() {
+        try {
+            passClip = AudioSystem.getClip();
+            passClip.open(AudioSystem.getAudioInputStream(new File(PASS_AUDIO_PATH)));
+            failClip = AudioSystem.getClip();
+            failClip.open(AudioSystem.getAudioInputStream(new File(FAIL_AUDIO_PATH)));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // MODIFIES: this
@@ -151,7 +173,13 @@ public class GUI extends JFrame {
                 messageType = JOptionPane.ERROR_MESSAGE;
             }
 
+            playClip(valid ? passClip : failClip);
             JOptionPane.showMessageDialog(null, validationMessage, "Validation Results", messageType);
+        }
+
+        public void playClip(Clip clip) {
+            clip.setFramePosition(0);
+            clip.start();
         }
     }
 }
