@@ -22,7 +22,7 @@ public class GUI extends JFrame {
     private static final int MAIN_GRID_ROWS = 1;
     private static final int MAIN_GRID_COLS = 1;
     private static final int MAIN_PANEL_PADDING = 25;
-    private static final int BUTTON_COUNT = 3;
+    private static final int BUTTON_COUNT = 4;
     private static final int BUTTON_VGAP = 10;
     private static final int DEFAULT_COMPOSITION_SIZE = 8;
     private static final String PASS_AUDIO_PATH = "./assets/pass.wav";
@@ -96,6 +96,7 @@ public class GUI extends JFrame {
     }
 
     private class ButtonPanel extends JPanel {
+        private ParnassusButton newCompositionButton;
         private ParnassusButton loadButton;
         private ParnassusButton saveButton;
         private ParnassusButton validationButton;
@@ -106,13 +107,56 @@ public class GUI extends JFrame {
             layout = (GridLayout) getLayout();
             layout.setVgap(BUTTON_VGAP);
 
+            newCompositionButton = new ParnassusButton("New Composition", new NewCompositionButtonListener());
             loadButton = new ParnassusButton("Load", new LoadButtonListener());
             saveButton = new ParnassusButton("Save", new SaveButtonListener());
             validationButton = new ParnassusButton("Validate", new ValidationButtonListener());
 
+            add(newCompositionButton);
             add(loadButton);
             add(saveButton);
             add(validationButton);
+        }
+    }
+
+    private class NewCompositionButtonListener extends ParnassusButtonListener {
+        private static final int DIALOG_WIDTH = 400;
+        private static final int DIALOG_HEIGHT = 200;
+        private static final int LAYOUT_ROWS = 3;
+        private static final int LAYOUT_COLS = 1;
+        private static final int DEFAULT_SIZE = 8;
+        private static final int MIN_SIZE = 2;
+        private static final int MAX_SIZE = 16;
+
+        private JDialog dialog;
+        private GridLayout layout;
+        private JLabel label;
+        private JSpinner spinner;
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            layout = new GridLayout(LAYOUT_ROWS, LAYOUT_COLS);
+            dialog = new JDialog();
+            dialog.setSize(DIALOG_WIDTH, DIALOG_HEIGHT);
+            dialog.setContentPane(new JPanel(layout));
+            dialog.setVisible(true);
+
+            label = new JLabel("Composition size:");
+            label.setHorizontalAlignment(JLabel.CENTER);
+            spinner = new JSpinner(new SpinnerNumberModel(DEFAULT_SIZE, MIN_SIZE, MAX_SIZE, 1));
+
+            dialog.add(label);
+            dialog.add(spinner);
+            dialog.add(new ParnassusButton("Confirm", new ConfirmButtonListener()));
+
+        }
+
+        private class ConfirmButtonListener extends ParnassusButtonListener {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setComposition(new Composition((int) spinner.getValue()));
+                dialog.setVisible(false);
+            }
         }
     }
 
