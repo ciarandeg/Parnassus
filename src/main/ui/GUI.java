@@ -91,9 +91,10 @@ public class GUI extends JFrame {
     }
 
     private void setComposition(Composition cmp) throws GraphicalCompositionTooLargeException {
-        compositionPanel = new GraphicalComposition(cmp);
-        this.cmp = cmp; // assignment after instantiation of panel because instantiation throws an exception
+        GraphicalComposition newGraphicalComposition = new GraphicalComposition(cmp);
+        this.cmp = cmp;
         mainPanel.remove(compositionPanel);
+        compositionPanel = newGraphicalComposition;
         mainPanel.add(compositionPanel, 0);
         mainPanel.validate();
     }
