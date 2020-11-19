@@ -41,7 +41,14 @@ public class GUI extends JFrame {
     public GUI() {
         super("Parnassus");
         cmp = new Composition(DEFAULT_COMPOSITION_SIZE);
-        compositionPanel = new GraphicalComposition(cmp);
+
+        try {
+            compositionPanel = new GraphicalComposition(cmp);
+        } catch (GraphicalCompositionTooLargeException e) {
+            e.printStackTrace();
+            return;
+        }
+
         initAudio();
         initGraphics();
     }
@@ -83,10 +90,10 @@ public class GUI extends JFrame {
         add(mainPanel);
     }
 
-    private void setComposition(Composition cmp) {
-        this.cmp = cmp;
-        mainPanel.remove(compositionPanel);
+    private void setComposition(Composition cmp) throws GraphicalCompositionTooLargeException {
         compositionPanel = new GraphicalComposition(cmp);
+        this.cmp = cmp; // assignment after instantiation of panel because instantiation throws an exception
+        mainPanel.remove(compositionPanel);
         mainPanel.add(compositionPanel, 0);
         mainPanel.validate();
     }
@@ -126,7 +133,6 @@ public class GUI extends JFrame {
         private static final int LAYOUT_COLS = 1;
         private static final int DEFAULT_SIZE = 8;
         private static final int MIN_SIZE = 2;
-        private static final int MAX_SIZE = 16;
 
         private JDialog dialog;
         private GridLayout layout;
@@ -143,7 +149,7 @@ public class GUI extends JFrame {
 
             label = new JLabel("Composition size:");
             label.setHorizontalAlignment(JLabel.CENTER);
-            spinner = new JSpinner(new SpinnerNumberModel(DEFAULT_SIZE, MIN_SIZE, MAX_SIZE, 1));
+            spinner = new JSpinner(new SpinnerNumberModel(DEFAULT_SIZE, MIN_SIZE, GraphicalComposition.MAX_SIZE, 1));
 
             dialog.add(label);
             dialog.add(spinner);
@@ -154,8 +160,13 @@ public class GUI extends JFrame {
         private class ConfirmButtonListener extends ParnassusButtonListener {
             @Override
             public void mouseClicked(MouseEvent e) {
-                setComposition(new Composition((int) spinner.getValue()));
-                dialog.setVisible(false);
+                try {
+                    setComposition(new Composition((int) spinner.getValue()));
+                    dialog.setVisible(false);
+                } catch (GraphicalCompositionTooLargeException graphicalCompositionTooLargeException) {
+                    // NOTE: spinner already limits composition's size to GraphicalComposition's maximum
+                    graphicalCompositionTooLargeException.printStackTrace();
+                }
             }
         }
     }
@@ -170,6 +181,10 @@ public class GUI extends JFrame {
                     setComposition(cmp);
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
+                } catch (GraphicalCompositionTooLargeException graphicalCompositionTooLargeException) {
+                    JOptionPane.showMessageDialog(null, "Composition Too Large",
+                                                    "Error: Composition Exceeds Maximum Size",
+                                                        JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
