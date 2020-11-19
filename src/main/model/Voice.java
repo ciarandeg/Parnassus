@@ -30,14 +30,14 @@ public class Voice implements Iterable<Note> {
     // REQUIRES: there is a note at position
     // MODIFIES: this
     // EFFECTS: set note to rest
-    public void removeNote(int position) {
-        notes.set(position, new Note());
+    public void removeNote(int index) {
+        notes.set(index, new Note());
     }
 
     // REQUIRES: there is a note at position
     // EFFECTS: return note at position
-    public Note getNote(int position) {
-        return notes.get(position);
+    public Note getNote(int index) {
+        return notes.get(index);
     }
 
     // EFFECTS: return number of notes in voice (excluding rests)

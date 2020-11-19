@@ -31,7 +31,7 @@ public class GUI extends JFrame {
 
     private Composition cmp;
     private JPanel mainPanel;
-    private GraphicalComposition compositionPanel;
+    private JComponent compositionPanel;
     private ButtonPanel buttonPanel;
     private JsonReader jsr;
     private JsonWriter jsw;
