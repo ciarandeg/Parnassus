@@ -148,7 +148,7 @@ public class GUI extends JFrame {
             dialog.setContentPane(new JPanel(layout));
             dialog.setVisible(true);
 
-            label = new JLabel("Composition size:");
+            label = new JLabel("Notes per voice (max " + GraphicalComposition.MAX_SIZE + "):");
             label.setHorizontalAlignment(JLabel.CENTER);
             spinner = new JSpinner(new SpinnerNumberModel(DEFAULT_SIZE, MIN_SIZE, GraphicalComposition.MAX_SIZE, 1));
 
