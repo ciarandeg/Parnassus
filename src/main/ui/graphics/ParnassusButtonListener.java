@@ -3,6 +3,7 @@ package ui.graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+// A MouseListener that ignores all actions other than a click
 public abstract class ParnassusButtonListener implements MouseListener {
     @Override
     public abstract void mouseClicked(MouseEvent e);

@@ -9,6 +9,7 @@ import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
+// A graphical representation of a Note, displayed as a JSpinner
 public class GraphicalNote extends JSpinner implements Observer {
     private static final Font FONT = new Font("NotoSansMono Nerd Font", Font.BOLD, 24);
 

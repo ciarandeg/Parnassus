@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
+// A graphical representation of a composition, comprised of instances of PartialGraphicalVoice
 public class GraphicalComposition extends JTabbedPane {
     public static final int MAX_TAB_COUNT = 8;
     public static final int NOTES_PER_TAB = 8;

@@ -8,6 +8,7 @@ import java.awt.*;
 
 import static java.lang.Integer.min;
 
+// A graphical representation of a sequence of Notes (part of a Voice), comprised of several GraphicalNotes
 public class PartialGraphicalVoice extends JPanel {
     private Voice voice;
 

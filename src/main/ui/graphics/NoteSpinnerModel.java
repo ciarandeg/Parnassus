@@ -3,6 +3,7 @@ package ui.graphics;
 import javax.swing.*;
 import java.util.Arrays;
 
+// A SpinnerListModel that displays note names
 public class NoteSpinnerModel extends SpinnerListModel {
     public static final String REST = "REST";
     public static final String[] NOTE_NAMES = {"C", "Db", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"};
