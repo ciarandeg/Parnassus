@@ -13,7 +13,7 @@ I also see the development process of this program as a good opportunity to soli
 ## User Stories
 
 - As a user, I want to be able to add multiple musical notes to a composition
-- As a user, I want to be able to verify that my composition is contains the same number of notes in each voice
+- As a user, I want to be able to verify that my composition contains the same number of notes in each voice
 - As a user, I want to be able to verify that my composition is wholly made up of consonances
 - As a user, I want to be able to verify that my composition does not contain parallel perfect intervals
 - As a user, I want to be able to verify that my composition begins and ends with perfect consonances
