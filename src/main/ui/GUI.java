@@ -9,7 +9,6 @@ import ui.graphics.*;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -17,11 +16,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class GUI extends JFrame {
-    public static final int WIDTH_MIN = 1200;
-    public static final int HEIGHT_MIN = 200;
-    private static final int MAIN_GRID_ROWS = 1;
-    private static final int MAIN_GRID_COLS = 1;
-    private static final int MAIN_PANEL_PADDING = 25;
+    public static final int WIDTH_MIN = 700;
+    public static final int HEIGHT_MIN = 175;
     private static final int BUTTON_COUNT = 4;
     private static final int BUTTON_VGAP = 10;
     private static final int DEFAULT_COMPOSITION_SIZE = 8;
@@ -71,7 +67,9 @@ public class GUI extends JFrame {
     // EFFECTS:  draws the JFrame window where this DrawingEditor will operate, and populates the tools to be used
     //           to manipulate this drawing
     private void initGraphics() {
-        setMinimumSize(new Dimension(WIDTH_MIN, HEIGHT_MIN));
+        Dimension windowSize = new Dimension(WIDTH_MIN, HEIGHT_MIN);
+        setMinimumSize(windowSize);
+        setPreferredSize(windowSize);
 
         initMainPanel();
 
@@ -81,9 +79,7 @@ public class GUI extends JFrame {
     }
 
     private void initMainPanel() {
-        mainPanel = new JPanel(new GridLayout(MAIN_GRID_ROWS, MAIN_GRID_COLS));
-        mainPanel.setBorder(new EmptyBorder(MAIN_PANEL_PADDING, MAIN_PANEL_PADDING,
-                                            MAIN_PANEL_PADDING, MAIN_PANEL_PADDING));
+        mainPanel = new JPanel();
         buttonPanel = new ButtonPanel();
         mainPanel.add(compositionPanel);
         mainPanel.add(buttonPanel);
