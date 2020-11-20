@@ -16,8 +16,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class GUI extends JFrame {
-    public static final int WIDTH_MIN = 700;
-    public static final int HEIGHT_MIN = 170;
+    private static final int WINDOW_PADDING_X = 10;
+    private static final int WINDOW_PADDING_Y = 0;
     private static final int BUTTON_COUNT = 4;
     private static final int BUTTON_VGAP = 10;
     private static final int DEFAULT_COMPOSITION_SIZE = 8;
@@ -67,11 +67,12 @@ public class GUI extends JFrame {
     // EFFECTS:  draws the JFrame window where this DrawingEditor will operate, and populates the tools to be used
     //           to manipulate this drawing
     private void initGraphics() {
-        Dimension windowSize = new Dimension(WIDTH_MIN, HEIGHT_MIN);
-        setMinimumSize(windowSize);
-        setPreferredSize(windowSize);
-
         initMainPanel();
+
+        Dimension minWindowSize = new Dimension(mainPanel.getPreferredSize().width + WINDOW_PADDING_X,
+                                                mainPanel.getPreferredSize().height + WINDOW_PADDING_Y);
+        setPreferredSize(minWindowSize);
+        setMinimumSize(minWindowSize);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
