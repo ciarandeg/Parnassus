@@ -17,6 +17,8 @@ public class GraphicalComposition extends JTabbedPane {
 
     private Composition composition;
 
+    // EFFECTS: construct a JTabbedPane where each tab contains several instances of PartialGraphicalVoice
+    //          represents a Composition graphically
     public GraphicalComposition(Composition composition) throws GraphicalCompositionTooLargeException {
         this.composition = composition;
         int voiceSize = this.composition.getVoice(0).size();

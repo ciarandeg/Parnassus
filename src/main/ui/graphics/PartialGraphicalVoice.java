@@ -11,6 +11,8 @@ import static java.lang.Integer.min;
 public class PartialGraphicalVoice extends JPanel {
     private Voice voice;
 
+    // EFFECTS: construct a JPanel containing several instances of GraphicalNote
+    //          represents part of a Voice graphically
     public PartialGraphicalVoice(Voice voice, int minIndex, int size) throws GraphicalVoiceOutOfBoundsException {
         super(new GridLayout(1, size));
         this.voice = voice;

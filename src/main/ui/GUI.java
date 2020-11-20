@@ -34,6 +34,8 @@ public class GUI extends JFrame {
     private Clip passClip;
     private Clip failClip;
 
+    // EFFECTS: construct and make visible a window containing:
+    //          a GraphicalComposition, a new composition button, a load button, a save button, and a validate button
     public GUI() {
         super("Parnassus");
         cmp = new Composition(DEFAULT_COMPOSITION_SIZE);
