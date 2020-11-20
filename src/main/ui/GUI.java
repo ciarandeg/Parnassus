@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class GUI extends JFrame {
     public static final int WIDTH_MIN = 700;
-    public static final int HEIGHT_MIN = 175;
+    public static final int HEIGHT_MIN = 170;
     private static final int BUTTON_COUNT = 4;
     private static final int BUTTON_VGAP = 10;
     private static final int DEFAULT_COMPOSITION_SIZE = 8;
