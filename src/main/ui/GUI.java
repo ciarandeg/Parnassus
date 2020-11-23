@@ -25,9 +25,8 @@ public class GUI extends JFrame {
     private static final String FAIL_AUDIO_PATH = "./assets/fail.wav";
     private final JFileChooser fc = new JFileChooser();
 
-    private Composition cmp;
     private JPanel mainPanel;
-    private JComponent compositionPanel;
+    private GraphicalComposition graphicalComposition;
     private ButtonPanel buttonPanel;
     private JsonReader jsr;
     private JsonWriter jsw;
@@ -38,10 +37,10 @@ public class GUI extends JFrame {
     //          a GraphicalComposition, a new composition button, a load button, a save button, and a validate button
     public GUI() {
         super("Parnassus");
-        cmp = new Composition(DEFAULT_COMPOSITION_SIZE);
+        Composition cmp = new Composition(DEFAULT_COMPOSITION_SIZE);
 
         try {
-            compositionPanel = new GraphicalComposition(cmp);
+            graphicalComposition = new GraphicalComposition(cmp);
         } catch (GraphicalCompositionTooLargeException e) {
             e.printStackTrace();
             return;
@@ -84,17 +83,16 @@ public class GUI extends JFrame {
     private void initMainPanel() {
         mainPanel = new JPanel();
         buttonPanel = new ButtonPanel();
-        mainPanel.add(compositionPanel);
+        mainPanel.add(graphicalComposition);
         mainPanel.add(buttonPanel);
         add(mainPanel);
     }
 
     private void setComposition(Composition cmp) throws GraphicalCompositionTooLargeException {
         GraphicalComposition newGraphicalComposition = new GraphicalComposition(cmp);
-        this.cmp = cmp;
-        mainPanel.remove(compositionPanel);
-        compositionPanel = newGraphicalComposition;
-        mainPanel.add(compositionPanel, 0);
+        mainPanel.remove(graphicalComposition);
+        graphicalComposition = newGraphicalComposition;
+        mainPanel.add(graphicalComposition, 0);
         mainPanel.validate();
     }
 
@@ -197,7 +195,7 @@ public class GUI extends JFrame {
                 jsw = new JsonWriter(fc.getSelectedFile().getPath());
                 try {
                     jsw.open();
-                    jsw.write(cmp);
+                    jsw.write(GraphicalComposition.getComposition());
                     jsw.close();
                 } catch (FileNotFoundException fileNotFoundException) {
                     fileNotFoundException.printStackTrace();
@@ -213,7 +211,7 @@ public class GUI extends JFrame {
             int messageType = JOptionPane.INFORMATION_MESSAGE;
             boolean valid = false;
             try {
-                cmp.validate();
+                graphicalComposition.getComposition().validate();
                 valid = true;
             } catch (VoiceNotFullException voiceNotFullException) {
                 validationMessage = "At least one voice is not full.";

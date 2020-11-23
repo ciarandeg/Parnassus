@@ -16,7 +16,7 @@ public class GraphicalComposition extends JTabbedPane {
     public static final int MAX_SIZE = MAX_TAB_COUNT * NOTES_PER_TAB;
     private static final int PADDING = 5;
 
-    private Composition composition;
+    private static Composition composition;
 
     // EFFECTS: construct a JTabbedPane where each tab contains several instances of PartialGraphicalVoice
     //          represents a Composition graphically
@@ -44,5 +44,9 @@ public class GraphicalComposition extends JTabbedPane {
                 addTab(tabName, panel);
             }
         }
+    }
+
+    public static Composition getComposition() {
+        return composition;
     }
 }

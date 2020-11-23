@@ -22,3 +22,8 @@ I also see the development process of this program as a good opportunity to soli
 
 ## Phase 4: Task 2
 The Validator class is robust. Its validate() method uses exceptions to provide multiple failstates without having to represent them as integer error codes.
+
+## Phase 4: Task 3
+I'm fairly happy with the way I'm representing objects in this project. If I could change anything, it would be the following:
+    - I was fairly reliant on private classes, especially in my GUI class. I'd like to refactor some of those private classes, it's a bit messy.
+    - I think there are too many classes with no clear associations other than their usage in inner methods (Interval, Motion, NoteSpinnerModel, etc).
