@@ -25,5 +25,5 @@ The Validator class is robust. Its validate() method uses exceptions to provide 
 
 ## Phase 4: Task 3
 I'm fairly happy with the way I'm representing objects in this project. If I could change anything, it would be the following:
-    - I was fairly reliant on private classes, especially in my GUI class. I'd like to refactor some of those private classes, it's a bit messy.
-    - I think there are too many classes with no clear associations other than their usage in inner methods (Interval, Motion, NoteSpinnerModel, etc).
+- I was fairly reliant on private classes, especially in my GUI class. I'd like to refactor some of those private classes, it's a bit messy.
+- I think there are too many classes with no clear associations other than their usage in inner methods (Interval, Motion, NoteSpinnerModel, etc).
