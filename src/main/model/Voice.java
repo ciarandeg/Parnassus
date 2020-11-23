@@ -7,6 +7,8 @@ import java.util.Iterator;
 public class Voice implements Iterable<Note> {
     private ArrayList<Note> notes;
 
+    // REQUIRES: size > 0
+    // EFFECTS: constructs a voice containing size notes
     public Voice(int size) {
         notes = new ArrayList<Note>();
         for (int i = 0; i < size; i++) {

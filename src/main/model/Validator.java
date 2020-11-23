@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 // Represents the benevolent teacher Aloys, who informs you about your errors through Socratic dialogue
 public class Validator {
-    private Voice v0;
-    private Voice v1;
     private Composition composition;
 
     public Validator(Composition composition) {
